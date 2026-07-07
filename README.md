@@ -57,18 +57,20 @@ Or switch at runtime with `/model volcengine-agent-plan/doubao-seed-2.0-pro`.
 
 | Model | Reasoning | Context | Max tokens |
 |---|:---:|---:|---:|
-| ark-code-latest | ✅ | 256K | 16384 |
-| deepseek-v4-pro | ✅ | 128K | 16384 |
-| deepseek-v4-flash | — | 128K | 16384 |
-| kimi-k2.7-code | ✅ | 256K | 16384 |
-| kimi-k2.6 | — | 256K | 16384 |
-| doubao-seed-2.0-pro | ✅ | 128K | 16384 |
-| doubao-seed-2.0-code | ✅ | 128K | 16384 |
-| doubao-seed-2.0-lite | — | 128K | 8192 |
-| doubao-seed-code | ✅ | 128K | 8192 |
-| glm-5.2 | ✅ | 128K | 8192 |
-| minimax-m2.7 | — | 128K | 8192 |
-| minimax-m3 | — | 128K | 8192 |
+| doubao-seed-2.0-mini | — | 256K | 128K |
+| doubao-seed-2.0-lite | — | 256K | 128K |
+| deepseek-v4-flash † | — | 1024K | 384K |
+| doubao-seed-2.0-code | ✅ | 256K | 128K |
+| doubao-seed-2.0-pro | ✅ | 256K | 128K |
+| minimax-m2.7 | — | 200K | 128K |
+| minimax-m3 | — | 512K | 128K |
+| glm-5.2 | ✅ | 1024K | 128K |
+| kimi-k2.6 | — | 256K | 32K |
+| kimi-k2.7-code | ✅ | 256K | 32K |
+| deepseek-v4-pro † | ✅ | 1024K | 384K |
+
+† DeepSeek models are early-access (尝鲜体验版). If you encounter rate limits or
+  congestion, switch to another model.
 
 Costs are zero because Agent Plan is a flat-rate subscription (billed via AFP points, not per-token).
 
@@ -105,7 +107,13 @@ npx tsc --noEmit                 # type-check
 
 Extensions run via [jiti](https://github.com/unjs/jiti), so TypeScript works without a build step. Edit `extensions/index.ts` and `/reload` in pi.
 
-The model catalogue lives in the `MODELS` array in `extensions/index.ts` — add new Volcengine models there as they ship.
+The model catalogue lives in the `MODELS` array in `extensions/index.ts`. Models and parameters are aligned with the [official Agent Plan model table](https://www.volcengine.com/docs/82379/2522860).
+
+### Adding a new model
+
+1. Add an entry to the `MODELS` array in `extensions/index.ts`
+2. Add a row to the table above in this README
+3. Run `/reload` in pi
 
 ## Acknowledgments
 

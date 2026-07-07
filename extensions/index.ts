@@ -49,23 +49,29 @@ interface ModelSpec {
 }
 
 /**
- * Model catalogue. Reasoning models carry thinking-depth support; flash/lite
- * and older variants do not. Costs are zero because Agent Plan is a flat-rate
- * subscription (billed via AFP points, not per-token).
+ * Model catalogue aligned with the official Agent Plan documentation.
+ * Reasoning models carry thinking-depth support; standard/fast models do not.
+ * Costs are zero because Agent Plan is a flat-rate subscription (billed via
+ * AFP points, not per-token).
+ *
+ * Context window and max tokens are sourced from the official Agent Plan
+ * model table: https://www.volcengine.com/docs/82379/2522860
  */
 const MODELS: ModelSpec[] = [
-  { id: "ark-code-latest", name: "Ark Code Latest (Auto)", reasoning: true, contextWindow: 256000, maxTokens: 16384 },
-  { id: "deepseek-v4-pro", name: "DeepSeek V4 Pro", reasoning: true, contextWindow: 128000, maxTokens: 16384 },
-  { id: "deepseek-v4-flash", name: "DeepSeek V4 Flash", reasoning: false, contextWindow: 128000, maxTokens: 16384 },
-  { id: "kimi-k2.7-code", name: "Kimi K2.7 Code", reasoning: true, contextWindow: 256000, maxTokens: 16384 },
-  { id: "kimi-k2.6", name: "Kimi K2.6", reasoning: false, contextWindow: 256000, maxTokens: 16384 },
-  { id: "doubao-seed-2.0-pro", name: "Doubao Seed 2.0 Pro", reasoning: true, contextWindow: 128000, maxTokens: 16384 },
-  { id: "doubao-seed-2.0-code", name: "Doubao Seed 2.0 Code", reasoning: true, contextWindow: 128000, maxTokens: 16384 },
-  { id: "doubao-seed-2.0-lite", name: "Doubao Seed 2.0 Lite", reasoning: false, contextWindow: 128000, maxTokens: 8192 },
-  { id: "doubao-seed-code", name: "Doubao Seed Code", reasoning: true, contextWindow: 128000, maxTokens: 8192 },
-  { id: "glm-5.2", name: "GLM 5.2", reasoning: true, contextWindow: 128000, maxTokens: 8192 },
-  { id: "minimax-m2.7", name: "MiniMax M2.7", reasoning: false, contextWindow: 128000, maxTokens: 8192 },
-  { id: "minimax-m3", name: "MiniMax M3", reasoning: false, contextWindow: 128000, maxTokens: 8192 },
+  // 极速 — Fastest text generation
+  { id: "doubao-seed-2.0-mini",   name: "Doubao Seed 2.0 Mini",   reasoning: false, contextWindow: 256000, maxTokens: 128000 },
+  // 标准 — Standard
+  { id: "doubao-seed-2.0-lite",   name: "Doubao Seed 2.0 Lite",   reasoning: false, contextWindow: 256000, maxTokens: 128000 },
+  { id: "deepseek-v4-flash",      name: "DeepSeek V4 Flash",      reasoning: false, contextWindow: 1024000, maxTokens: 384000 },
+  // 进阶 — Advanced
+  { id: "doubao-seed-2.0-code",   name: "Doubao Seed 2.0 Code",   reasoning: true,  contextWindow: 256000, maxTokens: 128000 },
+  { id: "doubao-seed-2.0-pro",    name: "Doubao Seed 2.0 Pro",    reasoning: true,  contextWindow: 256000, maxTokens: 128000 },
+  { id: "minimax-m2.7",           name: "MiniMax M2.7",           reasoning: false, contextWindow: 200000, maxTokens: 128000 },
+  { id: "minimax-m3",             name: "MiniMax M3",             reasoning: false, contextWindow: 512000, maxTokens: 128000 },
+  { id: "glm-5.2",                name: "GLM 5.2 (glm-latest)",   reasoning: true,  contextWindow: 1024000, maxTokens: 128000 },
+  { id: "kimi-k2.6",              name: "Kimi K2.6",              reasoning: false, contextWindow: 256000, maxTokens: 32000 },
+  { id: "kimi-k2.7-code",         name: "Kimi K2.7 Code",         reasoning: true,  contextWindow: 256000, maxTokens: 32000 },
+  { id: "deepseek-v4-pro",        name: "DeepSeek V4 Pro",        reasoning: true,  contextWindow: 1024000, maxTokens: 384000 },
 ];
 
 export default function (pi: ExtensionAPI) {
