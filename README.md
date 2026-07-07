@@ -107,6 +107,18 @@ Extensions run via [jiti](https://github.com/unjs/jiti), so TypeScript works wit
 
 The model catalogue lives in the `MODELS` array in `extensions/index.ts` — add new Volcengine models there as they ship.
 
+## Acknowledgments
+
+This extension builds on prior Volcengine Ark pi extensions. Both target the
+older Coding Plan endpoint, but their model catalogue and provider structure
+were valuable references:
+
+- [kaichen/pi-volcengine-provider](https://github.com/kaichen/pi-volcengine-provider) — Coding Plan provider with custom streaming
+- [OptimisticQuan/pi-volcengine-coding-plan](https://github.com/OptimisticQuan/pi-volcengine-coding-plan) — Coding Plan, config-driven model catalogue (the pattern this extension follows)
+
+The Agent Plan endpoint, thinking-depth configuration, and API-key handling
+were verified independently against the live `/api/plan/v3` API.
+
 ## License
 
 MIT

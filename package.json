@@ -1,6 +1,7 @@
 {
   "name": "pi-volcengine-agent-plan",
   "version": "0.1.0",
+  "type": "module",
   "description": "Pi extension for Volcengine Ark Agent Plan — registers a custom OpenAI-compatible provider with verified thinking-depth support for domestic coding models.",
   "keywords": [
     "pi-package",
