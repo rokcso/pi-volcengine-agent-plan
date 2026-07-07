@@ -33,13 +33,13 @@ pi install /path/to/pi-volcengine-agent-plan
 
 ## Configure
 
-Set your Agent Plan API key as an environment variable:
+After installing, run `/login` in pi and select the **volcengine-agent-plan** provider to store your Agent Plan API key:
 
-```bash
-export ARK_API_KEY=ark-xxxxxxxxxxxxxxxx
+```
+/login
 ```
 
-Add it to your shell profile (`~/.zshrc`, `~/.bashrc`) for persistence.
+The key is persisted in `~/.pi/agent/auth.json` (with `0600` permissions). It takes priority over the `ARK_API_KEY` environment variable, which also works as a fallback if you prefer not to use `/login`.
 
 Then set the provider as default in `~/.pi/agent/settings.json`:
 
