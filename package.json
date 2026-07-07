@@ -1,0 +1,36 @@
+{
+  "name": "pi-volcengine-agent-plan",
+  "version": "0.1.0",
+  "description": "Pi extension for Volcengine Ark Agent Plan — registers a custom OpenAI-compatible provider with verified thinking-depth support for domestic coding models.",
+  "keywords": [
+    "pi-package",
+    "volcengine",
+    "agent-plan",
+    "ark",
+    "doubao",
+    "deepseek",
+    "glm",
+    "kimi",
+    "minimax",
+    "thinking"
+  ],
+  "license": "MIT",
+  "author": "rokcso",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rokcso/pi-volcengine-agent-plan.git"
+  },
+  "files": [
+    "extensions",
+    "README.md",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "pi": {
+    "extensions": [
+      "./extensions"
+    ]
+  }
+}
