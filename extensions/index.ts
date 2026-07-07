@@ -46,6 +46,8 @@ interface ModelSpec {
   reasoning: boolean;
   contextWindow: number;
   maxTokens: number;
+  /** Input modalities: "text" only or ["text", "image"] */
+  vision: boolean;
 }
 
 /**
@@ -58,20 +60,20 @@ interface ModelSpec {
  * model table: https://www.volcengine.com/docs/82379/2522860
  */
 const MODELS: ModelSpec[] = [
-  // 极速 — Fastest text generation
-  { id: "doubao-seed-2.0-mini",   name: "Doubao Seed 2.0 Mini",   reasoning: false, contextWindow: 256000, maxTokens: 128000 },
+  // 极速 — Fastest text generation (all support image input)
+  { id: "doubao-seed-2.0-mini",   name: "Doubao Seed 2.0 Mini",   reasoning: false, vision: true,  contextWindow: 256000, maxTokens: 128000 },
   // 标准 — Standard
-  { id: "doubao-seed-2.0-lite",   name: "Doubao Seed 2.0 Lite",   reasoning: false, contextWindow: 256000, maxTokens: 128000 },
-  { id: "deepseek-v4-flash",      name: "DeepSeek V4 Flash",      reasoning: false, contextWindow: 1024000, maxTokens: 384000 },
+  { id: "doubao-seed-2.0-lite",   name: "Doubao Seed 2.0 Lite",   reasoning: false, vision: true,  contextWindow: 256000, maxTokens: 128000 },
+  { id: "deepseek-v4-flash",      name: "DeepSeek V4 Flash",      reasoning: false, vision: false, contextWindow: 1024000, maxTokens: 384000 },
   // 进阶 — Advanced
-  { id: "doubao-seed-2.0-code",   name: "Doubao Seed 2.0 Code",   reasoning: true,  contextWindow: 256000, maxTokens: 128000 },
-  { id: "doubao-seed-2.0-pro",    name: "Doubao Seed 2.0 Pro",    reasoning: true,  contextWindow: 256000, maxTokens: 128000 },
-  { id: "minimax-m2.7",           name: "MiniMax M2.7",           reasoning: false, contextWindow: 200000, maxTokens: 128000 },
-  { id: "minimax-m3",             name: "MiniMax M3",             reasoning: false, contextWindow: 512000, maxTokens: 128000 },
-  { id: "glm-5.2",                name: "GLM 5.2 (glm-latest)",   reasoning: true,  contextWindow: 1024000, maxTokens: 128000 },
-  { id: "kimi-k2.6",              name: "Kimi K2.6",              reasoning: false, contextWindow: 256000, maxTokens: 32000 },
-  { id: "kimi-k2.7-code",         name: "Kimi K2.7 Code",         reasoning: true,  contextWindow: 256000, maxTokens: 32000 },
-  { id: "deepseek-v4-pro",        name: "DeepSeek V4 Pro",        reasoning: true,  contextWindow: 1024000, maxTokens: 384000 },
+  { id: "doubao-seed-2.0-code",   name: "Doubao Seed 2.0 Code",   reasoning: true,  vision: true,  contextWindow: 256000, maxTokens: 128000 },
+  { id: "doubao-seed-2.0-pro",    name: "Doubao Seed 2.0 Pro",    reasoning: true,  vision: true,  contextWindow: 256000, maxTokens: 128000 },
+  { id: "minimax-m2.7",           name: "MiniMax M2.7",           reasoning: false, vision: false, contextWindow: 200000, maxTokens: 128000 },
+  { id: "minimax-m3",             name: "MiniMax M3",             reasoning: false, vision: true,  contextWindow: 512000, maxTokens: 128000 },
+  { id: "glm-5.2",                name: "GLM 5.2 (glm-latest)",   reasoning: true,  vision: false, contextWindow: 1024000, maxTokens: 128000 },
+  { id: "kimi-k2.6",              name: "Kimi K2.6",              reasoning: false, vision: true,  contextWindow: 256000, maxTokens: 32000 },
+  { id: "kimi-k2.7-code",         name: "Kimi K2.7 Code",         reasoning: true,  vision: true,  contextWindow: 256000, maxTokens: 32000 },
+  { id: "deepseek-v4-pro",        name: "DeepSeek V4 Pro",        reasoning: true,  vision: false, contextWindow: 1024000, maxTokens: 384000 },
 ];
 
 export default function (pi: ExtensionAPI) {
@@ -84,7 +86,7 @@ export default function (pi: ExtensionAPI) {
       id: m.id,
       name: m.name,
       reasoning: m.reasoning,
-      input: ["text"] as ("text" | "image")[],
+      input: (m.vision ? ["text", "image"] : ["text"]) as ("text" | "image")[],
       contextWindow: m.contextWindow,
       maxTokens: m.maxTokens,
       cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
