@@ -18,18 +18,14 @@ pi install git:github.com/rokcso/pi-volcengine-agent-plan
 
 ## Setup
 
-1. Run `/login` in pi, select **volcengine-agent-plan**, and enter your Agent Plan API key.
-2. Set as default in `~/.pi/agent/settings.json`:
+Run `/login` in pi, select **volcengine-agent-plan**, and enter your Agent Plan API key.
 
-```json
-{
-  "defaultProvider": "volcengine-agent-plan",
-  "defaultModel": "doubao-seed-2.0-pro",
-  "defaultThinkingLevel": "medium"
-}
-```
+Then switch to a model with `/model volcengine-agent-plan/<model-id>`. Available models are listed in the [official Agent Plan docs](https://www.volcengine.com/docs/82379/2522860). Reasoning models support 6 thinking levels cycled with **Shift+Tab**.
 
-> Use `/model volcengine-agent-plan/<model-id>` to switch models at runtime. Available models are listed in the [official Agent Plan docs](https://www.volcengine.com/docs/82379/2522860). Reasoning models support 6 thinking levels cycled with **Shift+Tab**.
+> Optionally set a default in `~/.pi/agent/settings.json`:
+> ```json
+> { "defaultProvider": "volcengine-agent-plan", "defaultModel": "doubao-seed-2.0-pro", "defaultThinkingLevel": "medium" }
+> ```
 
 ## Develop
 
