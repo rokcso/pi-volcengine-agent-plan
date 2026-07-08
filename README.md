@@ -1,26 +1,22 @@
 # pi-volcengine-agent-plan
 
-A [pi](https://github.com/earendil-works/pi-coding-agent) extension for **Volcengine Ark Agent Plan** — supports domestic coding models (Doubao, DeepSeek, GLM, Kimi, MiniMax) with **verified 6-level thinking-depth control**.
+A [pi](https://github.com/earendil-works/pi-coding-agent) extension for **Volcengine Ark Agent Plan** — domestic coding models (Doubao, DeepSeek, GLM, Kimi, MiniMax) with **verified 6-level thinking-depth control**.
 
-> If you've tried other Volcengine pi extensions and got HTTP 401, that's because they target the old **Coding Plan** endpoint (`/api/coding/v3`). Agent Plan uses its own endpoint and resource pool — this extension is built for it.
+> Other Volcengine pi extensions target the old **Coding Plan** endpoint (`/api/coding/v3`) and get HTTP 401 with an Agent Plan key. Agent Plan has its own endpoint and resource pool — this extension is built for it.
 
 ## Install
-
-```bash
-pi install .
-```
-
-Or from GitHub:
 
 ```bash
 pi install git:github.com/rokcso/pi-volcengine-agent-plan
 ```
 
-## Setup
+After installing, authenticate with your Agent Plan API key:
 
-Run `/login` in pi, select **volcengine-agent-plan**, and enter your Agent Plan API key.
+1. Run `/login` in pi
+2. Select **volcengine-agent-plan**
+3. Paste your Agent Plan API key
 
-Then switch to a model with `/model volcengine-agent-plan/<model-id>`. Available models are listed in the [official Agent Plan docs](https://www.volcengine.com/docs/82379/2522860). Reasoning models support 6 thinking levels cycled with **Shift+Tab**.
+Then switch models with `/model volcengine-agent-plan/<model-id>`. See the [official Agent Plan docs](https://www.volcengine.com/docs/82379/2522860) for available model IDs. Reasoning models support 6 thinking levels cycled with **Shift+Tab**.
 
 > Optionally set a default in `~/.pi/agent/settings.json`:
 > ```json
@@ -29,14 +25,15 @@ Then switch to a model with `/model volcengine-agent-plan/<model-id>`. Available
 
 ## Develop
 
-Extensions run via [jiti](https://github.com/unjs/jiti) — edit `extensions/index.ts` and run `/reload` in pi. No build step needed.
-
 ```bash
-npm install
-npx tsc --noEmit
+git clone https://github.com/rokcso/pi-volcengine-agent-plan
+cd pi-volcengine-agent-plan
+npm install          # peer types for IDE checking
+npx tsc --noEmit     # type-check
+pi install .         # install from your local checkout
 ```
 
-Model definitions live in the `MODELS` array, aligned with the [official Agent Plan model table](https://www.volcengine.com/docs/82379/2522860).
+Extensions run via [jiti](https://github.com/unjs/jiti) — edit `extensions/index.ts` and `/reload` in pi. No build step. Model definitions live in the `MODELS` array, aligned with the [official Agent Plan model table](https://www.volcengine.com/docs/82379/2522860).
 
 ## Acknowledgments
 
