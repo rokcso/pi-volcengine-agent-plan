@@ -38,6 +38,13 @@ npx tsc --noEmit
 
 Model definitions live in the `MODELS` array, aligned with the [official Agent Plan model table](https://www.volcengine.com/docs/82379/2522860).
 
+## Acknowledgments
+
+Model catalogue and provider structure informed by two prior Coding Plan extensions:
+
+- [kaichen/pi-volcengine-provider](https://github.com/kaichen/pi-volcengine-provider)
+- [OptimisticQuan/pi-volcengine-coding-plan](https://github.com/OptimisticQuan/pi-volcengine-coding-plan)
+
 ## License
 
 MIT
