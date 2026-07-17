@@ -37,11 +37,11 @@ Extensions run via [jiti](https://github.com/unjs/jiti) — edit `extensions/ind
 
 ### 2026-07 updates
 
-- **Responses API**: switched from `api: "openai-completions"` to `api: "openai-responses"`
 - **New models**:
   - **doubao-seed-evolving** — 1024k context / 256k output, reasoning + vision
-  - **kimi-k3** — 1024k context / 128k output, reasoning + vision, 2.8T parameters (Medium+ plan only)
-- **kimi-k3 vision**: confirmed to support image input (native vision understanding)
+  - **kimi-k3** — 1024k context / 128k output, vision (Medium+ plan only)
+- **Reasoning**: all 13 models verified to support `reasoning_effort` on Chat Completions — each produces actual `reasoning_content` in responses
+- **API type**: uses `openai-completions` (Chat Completions — full model compatibility verified)
 
 ## Acknowledgments
 
