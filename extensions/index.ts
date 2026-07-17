@@ -8,37 +8,33 @@ import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
  * and embedding tools. Its endpoint and resource pool are independent from
  * Coding Plan, so a Coding Plan API key receives HTTP 401 here and vice
  * versa. Use the endpoint below with an Agent Plan subscription key.
+ *
+ * 2026-07: Volcengine added OpenAI-compatible Responses API support on the
+ * same `/api/plan/v3` base URL (routes to `/responses`). This extension now
+ * uses `api: "openai-responses"` to leverage built-in state management,
+ * tool calling, and agentic looping through the Responses protocol.
  */
 const AGENT_PLAN_BASE_URL = "https://ark.cn-beijing.volces.com/api/plan/v3";
 
 /**
- * Thinking configuration verified against the Agent Plan endpoint.
+ * Compatibility settings for Volcengine's Responses API implementation.
  *
- * pi's built-in "deepseek" thinkingFormat sends:
- *   thinking: { type: "enabled" }   when a thinking level is selected
- *   thinking: { type: "disabled" }  when thinking is off
- *   reasoning_effort: <level>       when supportsReasoningEffort is true
+ * - supportsDeveloperRole: false — Volcengine doesn't support the `developer`
+ *   role; pi falls back to `system` role.
+ * - sendSessionIdHeader: false — Volcengine doesn't support OpenAI's
+ *   `session_id` cache-affinity header.
+ * - supportsLongCacheRetention: false — No support for `prompt_cache_retention`.
  *
- * Measured on doubao-seed-2.0-pro (reasoning_tokens by level, all HTTP 200):
- *   off=0  minimal=0  low=244  medium=302  high=358
- *
- * Volcengine reasoning_effort tops out at "high" (no "xhigh"), so xhigh is
- * downgraded to "high" via thinkingLevelMap.
+ * Reasoning effort is handled natively by the Responses API protocol
+ * (ResponseCreateParamsStreaming.reasoning_effort).
  */
-const THINKING_COMPAT = {
-  thinkingFormat: "deepseek" as const,
-  supportsReasoningEffort: true,
+const RESPONSES_COMPAT = {
   supportsDeveloperRole: false,
-  maxTokensField: "max_tokens" as const,
+  sendSessionIdHeader: false,
+  supportsLongCacheRetention: false,
 };
 
 const THINKING_LEVEL_MAP = { xhigh: "high" as const };
-
-/** Base compatibility for non-reasoning models. */
-const BASE_COMPAT = {
-  supportsDeveloperRole: false,
-  maxTokensField: "max_tokens" as const,
-};
 
 interface ModelSpec {
   id: string;
@@ -52,7 +48,6 @@ interface ModelSpec {
 
 /**
  * Model catalogue aligned with the official Agent Plan documentation.
- * Reasoning models carry thinking-depth support; standard/fast models do not.
  * Costs are zero because Agent Plan is a flat-rate subscription (billed via
  * AFP points, not per-token).
  *
@@ -62,6 +57,7 @@ interface ModelSpec {
  * 2026-07 update: added doubao-seed-evolving and kimi-k3 from the new
  * Agent Plan model catalogue (doubao-seed-evolving is the "终身成长型" model
  * with 1024k context, kimi-k3 is a 2.8T-parameter model, Medium+ only).
+ * Switched from openai-completions to openai-responses API type.
  */
 const MODELS: ModelSpec[] = [
   // 极速 — Fastest text generation (all support image input)
@@ -87,7 +83,7 @@ export default function (pi: ExtensionAPI) {
   pi.registerProvider("volcengine-agent-plan", {
     baseUrl: AGENT_PLAN_BASE_URL,
     apiKey: "$ARK_API_KEY",
-    api: "openai-completions",
+    api: "openai-responses",
     name: "Volcengine Ark (Agent Plan)",
     models: MODELS.map((m) => ({
       id: m.id,
@@ -97,7 +93,7 @@ export default function (pi: ExtensionAPI) {
       contextWindow: m.contextWindow,
       maxTokens: m.maxTokens,
       cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-      compat: m.reasoning ? THINKING_COMPAT : BASE_COMPAT,
+      compat: RESPONSES_COMPAT,
       ...(m.reasoning ? { thinkingLevelMap: THINKING_LEVEL_MAP } : {}),
     })),
   });

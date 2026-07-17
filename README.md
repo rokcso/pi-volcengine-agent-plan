@@ -35,11 +35,13 @@ pi install .         # install from your local checkout
 
 Extensions run via [jiti](https://github.com/unjs/jiti) — edit `extensions/index.ts` and `/reload` in pi. No build step. Model definitions live in the `MODELS` array, aligned with the [official Agent Plan model table](https://www.volcengine.com/docs/82379/2522860).
 
-### 2026-07 model update
+### 2026-07 updates
 
-New models added:
-- **doubao-seed-evolving** — 1024k context / 256k output, reasoning + vision, the "终身成长型" model
-- **kimi-k3** — 1024k context / 128k output, reasoning, 2.8T-parameter model (Medium+ plan only)
+- **Responses API**: switched from `api: "openai-completions"` to `api: "openai-responses"`
+- **New models**:
+  - **doubao-seed-evolving** — 1024k context / 256k output, reasoning + vision
+  - **kimi-k3** — 1024k context / 128k output, reasoning + vision, 2.8T parameters (Medium+ plan only)
+- **kimi-k3 vision**: confirmed to support image input (native vision understanding)
 
 ## Acknowledgments
 
