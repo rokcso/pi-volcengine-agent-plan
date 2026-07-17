@@ -58,6 +58,10 @@ interface ModelSpec {
  *
  * Context window and max tokens are sourced from the official Agent Plan
  * model table: https://www.volcengine.com/docs/82379/2522860
+ *
+ * 2026-07 update: added doubao-seed-evolving and kimi-k3 from the new
+ * Agent Plan model catalogue (doubao-seed-evolving is the "终身成长型" model
+ * with 1024k context, kimi-k3 is a 2.8T-parameter model, Medium+ only).
  */
 const MODELS: ModelSpec[] = [
   // 极速 — Fastest text generation (all support image input)
@@ -73,6 +77,9 @@ const MODELS: ModelSpec[] = [
   { id: "glm-5.2",                name: "GLM 5.2 (glm-latest)",   reasoning: true,  vision: false, contextWindow: 1024000, maxTokens: 128000 },
   { id: "kimi-k2.6",              name: "Kimi K2.6",              reasoning: false, vision: true,  contextWindow: 256000, maxTokens: 32000 },
   { id: "kimi-k2.7-code",         name: "Kimi K2.7 Code",         reasoning: true,  vision: true,  contextWindow: 256000, maxTokens: 32000 },
+  // New models as of 2026-07 Agent Plan refresh
+  { id: "doubao-seed-evolving",   name: "Doubao Seed Evolving",    reasoning: true,  vision: true,  contextWindow: 1024000, maxTokens: 256000 },
+  { id: "kimi-k3",                name: "Kimi K3",                 reasoning: true,  vision: true,  contextWindow: 1024000, maxTokens: 128000 },
   { id: "deepseek-v4-pro",        name: "DeepSeek V4 Pro",        reasoning: true,  vision: false, contextWindow: 1024000, maxTokens: 384000 },
 ];
 
