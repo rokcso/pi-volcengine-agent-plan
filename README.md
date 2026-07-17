@@ -1,6 +1,6 @@
 # pi-volcengine-agent-plan
 
-A [pi](https://github.com/earendil-works/pi-coding-agent) extension for **Volcengine Ark Agent Plan** — domestic coding models (Doubao, DeepSeek, GLM, Kimi, MiniMax) with **verified 6-level thinking-depth control**.
+A [pi](https://github.com/earendil-works/pi) extension for **Volcengine Ark Agent Plan** — domestic coding models (Doubao, DeepSeek, GLM, Kimi, MiniMax) with **verified 6-level thinking-depth control**.
 
 > Other Volcengine pi extensions target the old **Coding Plan** endpoint (`/api/coding/v3`) and get HTTP 401 with an Agent Plan key. Agent Plan has its own endpoint and resource pool — this extension is built for it.
 
